@@ -1,0 +1,43 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "frontend:lint",
+      "type": "shell",
+      "command": "npm run lint",
+      "options": { "cwd": "frontend" },
+      "problemMatcher": "$eslint-stylish"
+    },
+    {
+      "label": "frontend:test",
+      "type": "shell",
+      "command": "npm test --silent",
+      "options": { "cwd": "frontend" }
+    },
+    {
+      "label": "backend:lint",
+      "type": "shell",
+      "command": "npm run lint",
+      "options": { "cwd": "backend" },
+      "problemMatcher": "$eslint-stylish"
+    },
+    {
+      "label": "backend:test",
+      "type": "shell",
+      "command": "npm test --silent",
+      "options": { "cwd": "backend" }
+    },
+    {
+      "label": "CI: Lint + Test (all)",
+      "type": "shell",
+      "command": "echo running all",
+      "dependsOn": [
+        "frontend:lint",
+        "frontend:test",
+        "backend:lint",
+        "backend:test"
+      ],
+      "group": { "kind": "test", "isDefault": true }
+    }
+  ]
+}

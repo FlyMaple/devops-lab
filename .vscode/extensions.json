@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "redhat.vscode-yaml",
+    "GitHub.vscode-github-actions",
+    "usernamehw.errorlens",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode-remote.remote-wsl"
+  ]
+}
