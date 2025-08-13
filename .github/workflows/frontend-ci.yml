@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Frontend CI
+
+on:
+    push:
+        paths:
+            - "frontend/**"
+    pull_request:
+        paths:
+            - "frontend/**"
+
+jobs:
+    lint-and-test:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: frontend
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 18
+                  cache: "pnpm"
+                  cache-dependency-path: "frontend/package-lock.json"
+
+            - run: pnpm ci
+            - run: pnpm run lint
+            - run: pnpm test
+
+            - name: Upload coverage
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: frontend-coverage
+                  path: frontend/coverage
