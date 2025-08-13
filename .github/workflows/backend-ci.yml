@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Backend CI (pnpm workspace)
+
+on:
+    push:
+        paths: ["backend/**"]
+    pull_request:
+        paths: ["backend/**"]
+
+jobs:
+    lint-and-test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 9
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 18
+                  cache: pnpm
+                  cache-dependency-path: backend/pnpm-lock.yaml
+
+            - name: Install deps (workspace root)
+              run: pnpm install --frozen-lockfile
+
+            - name: Lint (if present)
+              run: pnpm -F backend --if-present run lint
+
+            - name: Test (if present)
+              run: pnpm -F backend --if-present run test
+
+            - name: Upload coverage (if exists)
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: backend-coverage
+                  path: backend/coverage
+                  if-no-files-found: ignore
