@@ -7,6 +7,6 @@ app.get("/health", (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Hi~`);
+    console.log(`Hi~Hi~`);
     console.log(`Backend server running at http://localhost:${port}`);
 });
