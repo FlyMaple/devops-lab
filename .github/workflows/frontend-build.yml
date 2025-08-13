@@ -23,6 +23,7 @@ jobs:
               with:
                   node-version: 22.17.1
                   pnpm-version: 10.13.1
+              continue-on-error: true
 
             - name: Install
               run: pnpm i --frozen-lockfile
